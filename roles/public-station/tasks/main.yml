@@ -1,0 +1,35 @@
+- name: update cache if has been awhile
+  apt: update_cache=yes cache_valid_time=86400
+- name: upgrade distro
+  apt: upgrade=dist
+- name: install xorg packages
+  apt: name={{item}} state=installed
+  with_items:
+    - xorg
+    - xprintidle
+    - xloadimage
+    - slim
+    - openbox
+- name: set autologin for slim
+  lineinfile: dest=/etc/slim.conf regexp="^auto_login " insertafter="^#auto_login " line="auto_login yes"
+- name: set default username for slim
+  lineinfile: dest=/etc/slim.conf regexp="^default_user " insertafter="^#default_user " line="default_user public"
+- name: remove xsession directory from slim
+  lineinfile: dest=/etc/slim.conf regexp="^sessiondir " line="#sessiondir " backrefs=yes
+- name: set slim to use xinitrc
+  lineinfile: dest=/etc/slim.conf regexp="^login_cmd " line="login_cmd exec /bin/sh - ~/.xinitrc" backrefs=yes
+- name: copy xinitrc file
+  copy: src=xinitrc dest=/home/public/.xinitrc
+- name: copy openbox autostart config
+  copy: src=openbox-autostart dest=/etc/xdg/openbox/autostart
+- name: copy screensaver background
+  copy: src=background.png dest=/home/public/background.png
+# LXC Stuff
+- name: install lxc packages
+  apt: name=lxc state=installed
+- name: copy autodev hook
+  copy: src=desktop-autodev dest=/usr/share/lxc/hooks/desktop-autodev mode=a+x
+- name: copy desktop config
+  copy: src=desktop.conf dest=/usr/share/lxc/config/desktop.conf
+- name: copy template
+  copy: src=lxc-desktop dest=/usr/share/lxc/templates/lxc-desktop mode=a+x

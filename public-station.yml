@@ -1,0 +1,5 @@
+- hosts: public-stations
+  roles:
+    - public-station
+  become: yes
+  become_user: root
