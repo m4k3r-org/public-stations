@@ -105,7 +105,12 @@ EOF
         mkdir -p $LXC_ROOTFS_MOUNT/etc/lightdm
         cat >$LXC_ROOTFS_MOUNT/etc/lightdm/lightdm.conf <<EOF
 [LightDM]
-minimum-vt=$(fgconsole --next-available)
+minimum-vt=8
+
+[SeatDefaults]
+autologin-user=public
+autologin-user-timeout=0
+user-session=mate
 EOF
 
 	mkdir -p $LXC_ROOTFS_MOUNT/usr/share/locale/en/LC_MESSAGES
