@@ -1,0 +1,9 @@
+USE_LXC_BRIDGE="true"
+LXC_BRIDGE="lxcbr0"
+# We use the 10.0.3.x internally so changing in order to prevent
+# any accidental routing issues
+LXC_ADDR="172.16.0.1"
+LXC_NETMASK="255.255.255.0"
+LXC_NETWORK="172.16.0.0/24"
+LXC_DHCP_RANGE="172.16.0.2,172.16.0.254"
+LXC_DHCP_MAX="253"
