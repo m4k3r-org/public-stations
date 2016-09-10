@@ -83,7 +83,7 @@ cat >> $path/config <<EOF
 lxc.include = /usr/share/lxc/config/desktop.conf
 EOF
 
-packages="xorg cinnamon"
+packages="xorg,ubuntu-mate-core,xserver-xorg-video-vesa,xserver-xorg-video-intel,xserver-xorg-video-fbdev,i965-va-driver,alsa-tools,xprintidle"
 
 /usr/share/lxc/templates/lxc-ubuntu --name="$name" --path="$path" \
-    --rootfs="$rootfs" --packages="$packages"
+    --rootfs="$rootfs" --packages="$packages" --user public --password public
