@@ -1,0 +1,1 @@
+public ALL=(ALL) NOPASSWD: /usr/bin/killall, /sbin/reboot, /usr/bin/start-public-desktop, /usr/bin/lxc-stop, /usr/bin/lxc-attach, /bin/systemctl, /bin/echo
