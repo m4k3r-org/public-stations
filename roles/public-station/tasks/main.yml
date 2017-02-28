@@ -31,6 +31,9 @@
 # LXC Package
 - name: install lxc packages
   apt: name=lxc state=installed
+# Exfat support / pulls in exfat-utils
+- name: install exfat fuse package
+  apt: name=exfat-fuse state=installed
 # Some templates for X to work right
 - name: copy autodev hook
   copy: src=desktop-autodev dest=/usr/share/lxc/hooks/desktop-autodev mode=a+x
