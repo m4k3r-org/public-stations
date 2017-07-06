@@ -51,3 +51,6 @@
   command: apparmor_parser -R /etc/apparmor.d/sbin.dhclient
 - name: setup mount script
   copy: src=start-public-desktop.sh dest=/usr/bin/start-public-desktop mode=a+x
+# Install sudoers file for killall command
+- name: allow catalog user to killall for reset
+  copy: src=killall.sudo dest=/etc/sudoers.d/killall validate='visudo -cf %s'
