@@ -1,0 +1,13 @@
+[Distribution]
+Distribution=ubuntu
+Release=xenial
+
+[Output]
+Format=raw_gpt
+
+[Packages]
+Packages=ubuntu-desktop
+Cache=./mkosi.cache
+
+[Partitions]
+RootSize=10000000000
