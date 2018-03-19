@@ -1,1 +1,0 @@
-This directory is used as a cache for mkosi builds.
