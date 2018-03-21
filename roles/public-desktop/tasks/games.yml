@@ -1,5 +1,5 @@
 ---
-- name: Install multimedia applications
+- name: Install games
   apt:
     name: '{{ item }}'
     state: present
