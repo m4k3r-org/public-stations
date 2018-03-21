@@ -1,0 +1,5 @@
+- hosts: public-desktop
+  roles:
+    - public-desktop
+  become: yes
+  become_user: root

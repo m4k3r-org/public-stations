@@ -1,0 +1,4 @@
+---
+default_user: it
+ansible_ssh_user: it
+ansible_python_interpreter: /usr/bin/python3
