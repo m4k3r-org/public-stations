@@ -1,0 +1,11 @@
+"builders": [
+    {
+      "type": "lxc",
+      "name": "lxc-arty",
+      "config_file": "/tmp/lxc/config",
+      "container_name": "public-desktop",
+      "template_name": "ubuntu",
+      "template_environment_vars": [
+        "SUITE=arty"
+      ]
+    },
