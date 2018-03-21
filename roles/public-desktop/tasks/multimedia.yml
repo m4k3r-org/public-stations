@@ -1,0 +1,16 @@
+---
+- name: Install multimedia applications
+  apt:
+    name: '{{ item }}'
+    state: present
+  with_items:
+    - gimp
+    - krita
+    - darktable
+    - inkscape
+    - audacity
+    - vlc
+    - openshot
+    - kdenlive
+    - handbrake
+    - totem

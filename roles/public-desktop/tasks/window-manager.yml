@@ -1,0 +1,14 @@
+---
+- name: Install X and related packages
+  apt:
+    name: '{{ item }}'
+    state: present
+  with_items:
+    - xorg 
+    - ubuntu-mate-core
+    - xserver-xorg-video-vesa
+    - xserver-xorg-video-intel
+    - xserver-xorg-video-fbdev
+    - i965-va-driver
+    - alsa-tools
+    - xprintidle

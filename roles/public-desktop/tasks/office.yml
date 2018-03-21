@@ -1,0 +1,37 @@
+---
+- name: Install Libreoffice with fonts and spelling
+  apt:
+    name: '{{ item }}'
+    state: present
+  with_items:
+    - libreoffice
+    - fonts-arphic-ukai
+    - fonts-arphic-uming
+    - fonts-ipafont-gothic
+    - fonts-ipafont-mincho
+    - fonts-unfonts-core
+    - mythes-en-us 
+    - libreoffice-voikko 
+    - libreoffice-lightproof-en 
+    - hunspell 
+    - hyphen-en-us
+    - hunspell-en-us
+
+- name: Mark MS Fonts EULA as seen
+  debconf:
+    name: ttf-mscorefonts-installer
+    question: msttcorefonts/present-mscorefonts-eula
+    vtype: seen
+    value: seen
+    
+- name: Accept MS Fonts EULA
+  debconf:
+    name: ttf-mscorefonts-installer
+    question: msttcorefonts/accepted-mscorefonts-eula
+    value: true
+    vtype: select
+
+- name: Install MS Fonts
+  apt:
+    name: ttf-mscorefonts-installer
+    state: present

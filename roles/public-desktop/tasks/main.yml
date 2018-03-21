@@ -1,0 +1,6 @@
+---
+- import_tasks: upgrade.yml
+- import_tasks: window-manager.yml
+- import_tasks: office.yml
+- import_tasks: multimedia.yml
+- import_tasks: games.yml
