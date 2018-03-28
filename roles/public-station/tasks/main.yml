@@ -1,13 +1,21 @@
 - name: update cache if has been awhile
-  apt: update_cache=yes cache_valid_time=86400
-- name: upgrade distro
-  apt: upgrade=dist
+  apt: 
+    update_cache: yes 
+    cache_valid_time: 86400
 - name: install usb automount
-  apt: name=usbmount state=installed
+  apt: 
+    name: usbmount 
+    state: present
 - name: set usbmount to right user
-  lineinfile: dest=/etc/usbmount/usbmount.conf regexp="^MOUNTOPTIONS " line="MOUNTOPTIONS=\"sync,noexec,nodev,noatime,nodiratime,uid=1000,gid=1000\"" backrefs=yes
+  lineinfile: 
+    dest: /etc/usbmount/usbmount.conf
+    regexp: "^MOUNTOPTIONS "
+    line: "MOUNTOPTIONS=\"sync,noexec,nodev,noatime,nodiratime,uid=1000,gid=1000\""
+    backrefs: yes
 - name: install xorg packages
-  apt: name={{item}} state=installed
+  apt: 
+    name: '{{item}}' 
+    state: installed
   with_items:
     - xorg
     - xprintidle
@@ -15,42 +23,88 @@
     - slim
     - openbox
 - name: set autologin for slim
-  lineinfile: dest=/etc/slim.conf regexp="^auto_login " insertafter="^#auto_login " line="auto_login yes"
+  lineinfile: 
+    dest: /etc/slim.conf
+    regexp: "^auto_login "
+    insertafter: "^#auto_login "
+    line: "auto_login yes"
 - name: set default username for slim
-  lineinfile: dest=/etc/slim.conf regexp="^default_user " insertafter="^#default_user " line="default_user {{ default_user }}"
+  lineinfile: 
+    dest: /etc/slim.conf
+    regexp: "^default_user "
+    insertafter: "^#default_user "
+    line: "default_user {{ default_user }}"
 - name: remove xsession directory from slim
-  lineinfile: dest=/etc/slim.conf regexp="^sessiondir " line="#sessiondir " backrefs=yes
+  lineinfile: 
+    dest: /etc/slim.conf 
+    regexp: "^sessiondir "
+    line: "#sessiondir "
+    backrefs: yes
 - name: set slim to use xinitrc
-  lineinfile: dest=/etc/slim.conf regexp="^login_cmd " line="login_cmd exec /bin/sh - ~/.xinitrc" backrefs=yes
+  lineinfile:
+    dest: /etc/slim.conf
+    regexp: "^login_cmd "
+    line: "login_cmd exec /bin/sh - ~/.xinitrc"
+    backrefs: yes
 - name: copy xinitrc file
-  copy: src=xinitrc dest=/home/{{ default_user }}/.xinitrc
+  copy:
+    src: xinitrc 
+    dest: '/home/{{ default_user }}/.xinitrc'
 - name: copy openbox autostart config
-  copy: src=openbox-autostart dest=/etc/xdg/openbox/autostart
+  copy:
+    src: openbox-autostart 
+    dest: /etc/xdg/openbox/autostart
 - name: copy screensaver background
-  copy: src=background.png dest=/home/{{ default_user }}/background.png
+  copy:
+    src: background.png
+    dest: '/home/{{ default_user }}/background.png'
 # LXC Package
 - name: install lxc packages
-  apt: name=lxc state=installed
+  apt:
+    name: lxc
+    state: present
 # Exfat support / pulls in exfat-utils
 - name: install exfat fuse package
-  apt: name=exfat-fuse state=installed
+  apt:
+    name: exfat-fuse
+    state: present
 # Some templates for X to work right
 - name: copy autodev hook
-  copy: src=desktop-autodev dest=/usr/share/lxc/hooks/desktop-autodev mode=a+x
+  copy:
+    src: desktop-autodev
+    dest: /usr/share/lxc/hooks/desktop-autodev
+    mode: a+x
 - name: copy desktop config
-  copy: src=desktop.conf dest=/usr/share/lxc/config/desktop.conf
+  copy:
+    src: desktop.conf
+    dest: /usr/share/lxc/config/desktop.conf
 - name: copy template
-  copy: src=lxc-desktop dest=/usr/share/lxc/templates/lxc-desktop mode=a+x
+  copy:
+    src: lxc-desktop
+    dest: /usr/share/lxc/templates/lxc-desktop
+    mode: a+x
 # We don't want the machine starting at boot
 - name: set boot to no for lxc
-  lineinfile: dest=/etc/default/lxc regexp="^LXC_AUTO" line="LXC_AUTO=false" backrefs=yes
+  lineinfile:
+    dest: /etc/default/lxc
+    regexp: "^LXC_AUTO"
+    line: "LXC_AUTO=false"
+    backrefs: yes
 # Change the LXC network to be one we don't use
 - name: LXC network file for 172.x
-  copy: src=lxc-net dest=/etc/default/lxc-net
+  copy: 
+    src: lxc-net
+    dest: /etc/default/lxc-net
 - name: disable apparmor dhclient protection for aufs
   command: apparmor_parser -R /etc/apparmor.d/sbin.dhclient
 - name: setup mount script
-  copy: src=start-public-desktop.sh dest=/usr/bin/start-public-desktop mode=a+x
+  copy:
+    src: start-public-desktop.sh
+    dest: /usr/bin/start-public-desktop
+    mode: a+x
 # Install sudoers file for killall command
 - name: allow catalog user to killall for reset
-  copy: src=killall.sudo dest=/etc/sudoers.d/killall validate='visudo -cf %s'
+  copy:
+    src: killall.sudo
+    dest: /etc/sudoers.d/killall
+    validate: 'visudo -cf %s'
