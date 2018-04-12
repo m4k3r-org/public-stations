@@ -12,6 +12,12 @@
     regexp: "^MOUNTOPTIONS "
     line: "MOUNTOPTIONS=\"sync,noexec,nodev,noatime,nodiratime,uid=1000,gid=1000\""
     backrefs: yes
+- name: set usbmount to automount ntfs
+  lineinfile: 
+    dest: /etc/usbmount/usbmount.conf
+    regexp: "^FILESYSTEMS"
+    line: "FILESYSTEMS=\"vfat ext2 ext3 ext4 hfsplus ntfs-3g\""
+    backrefs: yes
 - name: install xorg packages
   apt: 
     name: '{{item}}' 
