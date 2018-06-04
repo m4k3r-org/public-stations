@@ -60,6 +60,10 @@
   copy:
     src: openbox-autostart 
     dest: /etc/xdg/openbox/autostart
+- name: copy openbox menu
+  copy:
+    src: openbox-menu.xml
+    dest: /etc/xdg/openbox/menu.xml
 - name: copy screensaver background
   copy:
     src: background.png
