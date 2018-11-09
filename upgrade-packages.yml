@@ -1,0 +1,19 @@
+---
+- hosts: all
+  become: true
+  tasks:
+  - name: Update APT package cache
+    apt:
+      update_cache: yes
+      cache_valid_time: 600
+
+  - name: Upgrade APT to the latest packages
+    apt:
+      upgrade: safe
+
+  - name: Autoremove unused packages
+    apt:
+      autoremove: yes
+
+  - name: Reboot
+    reboot:
