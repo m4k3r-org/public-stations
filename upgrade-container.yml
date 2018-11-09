@@ -1,0 +1,18 @@
+---
+- hosts: all
+  become: true
+  tasks:
+  - name: Start main container
+    lxc_container:
+      name: public-desktop
+      state: started
+  - name: Update browsers
+    lxc_container:
+      name: public-desktop
+      container_command: |
+        apt-get update
+        apt-get install -y google-chrome-stable firefox
+  - name: Stop main container
+    lxc_container:
+      name: public-desktop
+      state: stopped
