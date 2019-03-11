@@ -20,14 +20,8 @@
     backrefs: yes
 - name: install xorg packages
   apt: 
-    name: '{{item}}' 
-    state: installed
-  with_items:
-    - xorg
-    - xprintidle
-    - xloadimage
-    - slim
-    - openbox
+    name: ['xorg', 'xprintidle', 'xloadimage', 'slim', 'openbox'] 
+    state: present
 - name: set autologin for slim
   lineinfile: 
     dest: /etc/slim.conf
