@@ -58,6 +58,8 @@
   copy:
     src: openbox-menu.xml
     dest: /etc/xdg/openbox/menu.xml
+  tags:
+    - openbox-menu
 - name: copy screensaver background
   copy:
     src: background.png
